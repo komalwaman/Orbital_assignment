@@ -6,17 +6,12 @@ class TestCreditCalculator(unittest.TestCase):
         text = "What is the rent?"
         expected_credits = 1.05
         actual_credits = calculate_credits(text)
-        # self.assertGreater(credits, 1.0)
         self.assertAlmostEqual(actual_credits, expected_credits, places=2)
-        # Use assertEqual if exact match expected
-        # self.assertEqual(actual_credits, expected_credits)
 
     def test_long_text_exact(self):
         text = "a" * 101
         expected_credits = 38.5
         actual_credits = calculate_credits(text)
-        # self.assertGreaterEqual(calculate_credits(text), 6.05)
-        # self.assertEqual(actual_credits, expected_credits)
         self.assertAlmostEqual(actual_credits, expected_credits, places=2)
 
     def test_palindrome_exact(self):

@@ -38,14 +38,11 @@ def calculate_credits(text: str) -> float:
     # If all words in the message are unique (case-sensitive), subtract 2 credits from the total cost (remember the minimum cost should still be 1 credit).
     unique_word_bonus = -2.0 if len(words) == len(set(words)) else 0.0
 
-    breakpoint()
     total = base_cost + char_cost + word_cost + third_vowel_cost + length_penalty + unique_word_bonus
     total = max(total, 1.0)
-    breakpoint()
 
     if is_palindrome(text):
         total *= 2
-    breakpoint()
 
     return total
 
