@@ -43,6 +43,33 @@ flask run --port=5001
 Finally, open your browser and visit: `http://localhost:{port}/usage` 
 Replace `{port}` with the port number you used (default is 5000).
 
+## API Endpoint: `/usage`
+```GET /usage```
+Returns the usage data for the current billing period.
+
+Example Response
+```json
+{
+  "usage": [
+    {
+      "message_id": 1000,
+      "credits_used": 79.0,
+      "timestamp": "2024-04-29T02:08:29.375Z",
+      "report_name": "Tenant Obligations Report" // optional
+    },
+    ...
+  ]
+}
+```
+
+The response is returned as minified JSON to reduce payload size.
+
+If you prefer a human-readable format, use a tool like jq:
+
+```
+curl http://localhost:5000/usage | jq
+```
+
 ## Project Structure
 
 ```
@@ -61,10 +88,10 @@ orbital_usage/
 
 ## Design Decisions
 
-- Clear separation of concerns: calculation, routing, utilities.
-- Tests added for main edge cases (palindrome, bonus, penalties).
-- Followed exact contract for `/usage` endpoint output.
-- Handles fallback in case of invalid `report_id`.
+- Modular structure: Logic is split cleanly between calculation (`credit_calculator.py`), HTTP routing (`routes.py`), and helper methods (`utils.py`), making the code easier to test and maintain.
+- Test coverage for key logic branches: Unit tests are provided for edge cases including palindrome detection, unique word bonuses, length penalties, and vowel position logic.
+- Spec-compliant response structure: The `/usage` endpoint response strictly follows the expected JSON format described in the task, including optional `report_name` fields when applicable.
+- Graceful error handling: If a `report_id` is invalid or not found, the system skips it without crashing, ensuring robustness and fault tolerance.
 
 ## Tests
 
