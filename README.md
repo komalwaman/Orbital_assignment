@@ -89,6 +89,7 @@ orbital_usage/
 ## Design Decisions
 
 - Modular structure: Logic is split cleanly between calculation (`credit_calculator.py`), HTTP routing (`routes.py`), and helper methods (`utils.py`), making the code easier to test and maintain.
+- Framework choice: Flask over FastAPI: Flask was chosen for its simplicity and minimal boilerplate, allowing quick development for a small-scale task. Since concurrency and validation were not key requirements, Flask's synchronous model was sufficient. For production use cases involving async I/O, schema validation, or automatic OpenAPI docs, FastAPI would be a strong candidate.
 - Test coverage for key logic branches: Unit tests are provided for edge cases including palindrome detection, unique word bonuses, length penalties, and vowel position logic.
 - Spec-compliant response structure: The `/usage` endpoint response strictly follows the expected JSON format described in the task, including optional `report_name` fields when applicable.
 - Graceful error handling: If a `report_id` is invalid or not found, the system skips it without crashing, ensuring robustness and fault tolerance.
